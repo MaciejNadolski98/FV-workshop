@@ -1,0 +1,1 @@
+This workshop is heavily inspired by Certora's https://github.com/Certora/Tutorials
