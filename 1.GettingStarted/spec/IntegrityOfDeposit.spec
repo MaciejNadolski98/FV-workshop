@@ -14,7 +14,8 @@
 
 **/
 
-rule integrityOfDeposit(uint256 amount) {
+rule integrityOfDeposit {
+	uint256 amount;
 	// The env type represents the EVM parameters passed in every 
 	//   call (msg.*, tx.*, block.* variables in solidity).
 	env e; 
