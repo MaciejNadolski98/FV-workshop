@@ -2,11 +2,12 @@
 ```
 pip3 install solc-select
 pip3 install certora-cli
-vscode Certora syntax highlighter
 
 solc-select install 0.7.6
 solc-select use 0.7.6
 ```
+
+You will also need a Certora Verification Language syntax highlighter VSC extension.
 
 # Test
 
