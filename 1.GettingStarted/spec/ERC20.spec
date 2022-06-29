@@ -1,4 +1,10 @@
+/**
+        Fill in the TODOs and then investigate the reports.
 
+		To run, execute the following command in terminal/cmd:
+
+		certoraRun contracts/ERC20.sol --verify ERC20:spec/ERC20.spec
+**/
 
 rule transferFromDecreasesAllowance {
     env e;
