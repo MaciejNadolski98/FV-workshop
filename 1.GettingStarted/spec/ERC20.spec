@@ -6,6 +6,7 @@
 		certoraRun contracts/ERC20.sol --verify ERC20:spec/ERC20.spec
 **/
 
+// verify that the transferFrom(...) function always decreases allowance by amount
 rule transferFromDecreasesAllowance {
     env e;
     address from; address to; uint256 amount;
@@ -15,6 +16,7 @@ rule transferFromDecreasesAllowance {
     assert allowanceAfter == allowanceBefore - amount;
 }
 
+// verify that a user (sender) cannot increase another user's (owner) allowance
 rule senderCannotIncreaseOwnerAllowance(method f) {
     env e; calldataarg args;
     address sender = e.msg.sender;
@@ -27,6 +29,7 @@ rule senderCannotIncreaseOwnerAllowance(method f) {
     assert ownerAllowanceAfter <= ownerAllowanceBefore;
 }
 
+// verify that transfer increases the recipient's balance and decreases the sender's balance
 rule transferChangesBalances {
     env e;
     address from; address to; uint256 amount;
