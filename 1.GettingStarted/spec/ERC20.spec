@@ -16,7 +16,7 @@ rule transferFromDecreasesAllowance {
     assert allowanceAfter == allowanceBefore - amount;
 }
 
-// verify that a user (sender) cannot increase another user's (owner) allowance
+// verify that a user (sender) cannot increase another user's (owner) allowance by calling any public function
 rule senderCannotIncreaseOwnerAllowance(method f) {
     env e; calldataarg args;
     address sender = e.msg.sender;
@@ -29,7 +29,7 @@ rule senderCannotIncreaseOwnerAllowance(method f) {
     assert ownerAllowanceAfter <= ownerAllowanceBefore;
 }
 
-// verify that transfer increases the recipient's balance and decreases the sender's balance
+// verify that transfer(...) increases the recipient's balance and decreases the sender's balance
 rule transferChangesBalances {
     env e;
     address from; address to; uint256 amount;
