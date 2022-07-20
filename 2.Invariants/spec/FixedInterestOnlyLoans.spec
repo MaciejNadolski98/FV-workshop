@@ -1,10 +1,9 @@
+// Run using:
+//      certoraRun FixedInterestOnlyLoans.conf
 
 methods {
-    periodCount(uint256) returns uint16 envfree
-    periodsRepaid(uint256) returns uint256 envfree
     loansLength() returns uint256 envfree
-    loanExists(uint256) returns bool envfree
-    status(uint256) returns uint8 envfree
+    // TODO
 }
 
 definition STATUS_CREATED() returns uint8 = 0;
@@ -14,48 +13,26 @@ definition STATUS_REPAID() returns uint8 = 3;
 definition STATUS_CANCELED() returns uint8 = 4;
 definition STATUS_DEFAULTED() returns uint8 = 5;
 
+// This is theoretically achievable but practically unfeasible, therefore we can assume it
+// without proving it
 definition largeLoansDoNotExist() returns bool = loansLength() < 2^250;
 
+// The periodsRepaid is less than or equal periodsCount
 invariant periodsRepaidIsLTEPeriodsCount(uint256 instrumentId)
-    periodsRepaid(instrumentId) <= periodCount(instrumentId) 
-    {
-        preserved {
-            require largeLoansDoNotExist();
-            requireInvariant periodsRepaidIsLTPeriodsCountWhileLoanIsOutstanding(instrumentId);
-            requireInvariant periodsRepaidIsZeroBeforeLoanStart(instrumentId);
-        }
-    }
+    true // TODO
 
+// The periodCount is *strictly* positive for existing loans
 invariant periodCountIsPositiveForExistingLoans(uint256 instrumentId)
-    (loanExists(instrumentId)) => (periodCount(instrumentId) > 0)
+    true // TODO
 
+// The periodsRepaid is less than periodCount while the loan is outstanding
 invariant periodsRepaidIsLTPeriodsCountWhileLoanIsOutstanding(uint256 instrumentId)
-    (status(instrumentId) == STATUS_STARTED() || status(instrumentId) == STATUS_DEFAULTED()) 
-    =>
-    (periodsRepaid(instrumentId) < periodCount(instrumentId))
-    {
-        preserved with (env e) {
-            require e.msg.sender != 0;
-            require largeLoansDoNotExist();
-            requireInvariant periodsRepaidIsZeroBeforeLoanStart(instrumentId);
-            requireInvariant periodCountIsPositiveForExistingLoans(instrumentId);
-        }
-    }
+    true // TODO
 
+// The periodsRepaid is zero before loan start
 invariant periodsRepaidIsZeroBeforeLoanStart(uint256 instrumentId)
-    (!loanExists(instrumentId) || status(instrumentId) == STATUS_CREATED() || status(instrumentId) == STATUS_ACCEPTED() || status(instrumentId) == STATUS_CANCELED())
-    =>
-    (periodsRepaid(instrumentId) == 0)
-    {
-        preserved with (env e) {
-            require e.msg.sender != 0;
-            require largeLoansDoNotExist();
-        }
-    }
+    true // TODO
 
+// instrumentId is an id of an existing loan if and only if it's below loanLength
 invariant loanLengthIsAboveExistingInstrumentId(uint256 instrumentId)
-    (loanExists(instrumentId)) <=> (loansLength() > instrumentId){
-        preserved {
-            require largeLoansDoNotExist();
-        }
-    }
+    true // TODO
