@@ -2,8 +2,11 @@
 //      certoraRun FixedInterestOnlyLoans.conf
 
 methods {
+    periodCount(uint256) returns uint16 envfree
+    periodsRepaid(uint256) returns uint256 envfree
     loansLength() returns uint256 envfree
-    // TODO
+    loanExists(uint256) returns bool envfree
+    status(uint256) returns uint8 envfree
 }
 
 definition STATUS_CREATED() returns uint8 = 0;
@@ -23,13 +26,15 @@ invariant periodsRepaidIsLTEPeriodsCount(uint256 instrumentId)
 
 // The periodCount is *strictly* positive for existing loans
 invariant periodCountIsPositiveForExistingLoans(uint256 instrumentId)
-    true // TODO
+    (loanExists(instrumentId)) => (periodCount(instrumentId) > 0)
 
 // The periodsRepaid is less than periodCount while the loan is outstanding
+// An outstanding loan has status Started or Defaulted
 invariant periodsRepaidIsLTPeriodsCountWhileLoanIsOutstanding(uint256 instrumentId)
     true // TODO
 
 // The periodsRepaid is zero before loan start
+// A loan is before start if it doesn't exist or has status Created, Accepted or Canceled
 invariant periodsRepaidIsZeroBeforeLoanStart(uint256 instrumentId)
     true // TODO
 
