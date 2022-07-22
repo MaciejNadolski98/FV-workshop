@@ -16,8 +16,8 @@ definition STATUS_REPAID() returns uint8 = 3;
 definition STATUS_CANCELED() returns uint8 = 4;
 definition STATUS_DEFAULTED() returns uint8 = 5;
 
-// This is theoretically achievable but practically unfeasible, therefore we can assume it
-// without proving it
+// Large loan ids can affect some invariants due to integer overflows. Those are
+// practically unfeasible though, so we can require this property where needed.
 definition largeLoansDoNotExist() returns bool = loansLength() < 2^250;
 
 // The periodsRepaid is less than or equal periodsCount
