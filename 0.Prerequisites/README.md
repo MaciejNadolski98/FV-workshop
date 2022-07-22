@@ -7,7 +7,9 @@ solc-select install 0.7.6
 solc-select use 0.7.6
 ```
 
-You will also need a Certora Verification Language syntax highlighter VSC extension.
+You will also need a Certora Verification Language syntax highlighter VSC extension and Java JDK version 11 or newer.
+
+More comprehensive installation guide can be found here: https://certora.atlassian.net/wiki/spaces/CPD/pages/7274497/Installation+of+Certora+Prover
 
 # Test
 
