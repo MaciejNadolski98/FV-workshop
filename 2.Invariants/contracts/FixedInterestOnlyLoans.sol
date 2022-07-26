@@ -49,6 +49,9 @@ contract FixedInterestOnlyLoans {
     }
 
     function loanExists(uint256 instrumentId) public view returns (bool) {
+        if (instrumentId >= loans.length) {
+            return false;
+        }
         return ownerOf(instrumentId) != address(0);
     }
 

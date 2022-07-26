@@ -55,7 +55,8 @@ invariant periodsRepaidIsZeroBeforeLoanStart(uint256 instrumentId)
 
 invariant loanLengthIsAboveExistingInstrumentId(uint256 instrumentId)
     (loanExists(instrumentId)) <=> (loansLength() > instrumentId){
-        preserved {
+        preserved with (env e) {
+            require e.msg.sender != 0; 
             require largeLoansDoNotExist();
         }
     }
